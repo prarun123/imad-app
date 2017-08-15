@@ -33,7 +33,7 @@ var config = {
 };
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
-   pool.query('select * from article', function(err,result) {
+   pool.query('SELECT * FROM article', function(err,result) {
      if(err)
         res.status(500).send(err.toString());
      else
