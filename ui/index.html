@@ -4,15 +4,25 @@
         <link href="/ui/style.css" rel="stylesheet" />
     </head>
     <body>
-        <div class="center">
-            <img src="/ui/madi.png" class="img-medium"/>
-        </div>
-        <br>
-        <div class="center text-big bold">
-            Hi! I am Arun and this is my first webapp.
-            <h4>locally updated. finally...</h4>
+        <div class="container">
+            <div class="center">
+                <img id="madi" src="/ui/madi.png" class="img-medium"/>
+            </div>
+            <br>
+            <div id="main-text" class="center text-big bold">
+                Hi! I am Arun and this is my first webapp.
+                <p>locally updated. finally...</p>
+            </div>
+            <div>
+                This Button <button id="counter1">Me!</button> has been clicked <span id=count>0</span> times
+            </div>
+            <hr>
+            <input id="source"></input> <input id="sub" type="submit"></input>
+            <ul id="ul">
+            </ul>
         </div>
         <script type="text/javascript" src="/ui/main.js">
         </script>
     </body>
 </html>
+
