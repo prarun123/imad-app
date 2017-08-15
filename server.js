@@ -28,14 +28,7 @@ var config = {
     password: process.env.DB_PASSWORD
 };
 var pool = new Pool(config);
-app.get('/test-db', function(req,res) {
-   pool.query('select * from article', function(res,err) {
-     if(err)
-        res.status(500).send(err.toString());
-     else
-        res.send(JSON.stringify(result));
-   });
-});
+
 
 // Do not change port, otherwise your app won't run on IMAD servers
 // Use 8080 only for local development if you already have apache running on 80
