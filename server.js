@@ -19,6 +19,10 @@ app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
+app.get('/ui/main.html', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'main.html'));
+});
+
 //connect to database
 var config = {
     user: 'prarun123',
@@ -28,6 +32,14 @@ var config = {
     password: process.env.DB_PASSWORD
 };
 var pool = new Pool(config);
+app.get('/test-db', function(req,res) {
+   pool.query('select * from article', function(res,err) {
+     if(err)
+        res.status(500).send(err.toString());
+     else
+        res.send(JSON.stringify(result));
+   });
+});
 
 
 // Do not change port, otherwise your app won't run on IMAD servers
