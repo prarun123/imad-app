@@ -12,7 +12,8 @@ button.onclick = function () {
 		}
 	};
 
-	request.open('GET','http://localhost/counter',true);
+	//request.open('GET','http://localhost/counter',true);
+	request.open('GET','http://prarun123.imad.hasura-app.io/counter',true);
 	request.send(null);
 }
 
@@ -35,7 +36,8 @@ sub.onclick = function () {
 	var source1 = document.getElementById('source');
 	var source = source1.value;
 	// request.open('GET','http://localhost/get_name/'+ source,true);
-	request.open('GET','http://localhost/get_name/?name='+ source,true);
+	//request.open('GET','http://localhost/get_name/?name='+ source,true);
+	request.open('GET','http://prarun123.imad.hasura-app.io/get_name/?name='+ source,true);
 	request.send(null);
 }
 
