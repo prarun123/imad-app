@@ -27,8 +27,9 @@ app.get('/ui/main.js', function (req, res) {
 var config = {
     user: 'prarun123',
     database: 'prarun123',
-    host: 'http://db.imad.hasura-app.io',
-    port: '5432'
+    host: 'db.imad.hasura-app.io',
+    port: '5432',
+    password: process.env.DB_PASSWORD
 };
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
