@@ -19,8 +19,8 @@ app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
-app.get('/ui/main.html', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'main.html'));
+app.get('/ui/main.js', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
 //connect to database
@@ -33,7 +33,7 @@ var config = {
 };
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
-   pool.query('select * from article', function(res,err) {
+   pool.query('select * from article', function(err,result) {
      if(err)
         res.status(500).send(err.toString());
      else
