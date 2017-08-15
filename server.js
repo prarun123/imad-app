@@ -7,6 +7,68 @@ app.use(morgan('combined'));
 
 var Pool = require('pg').Pool;
 
+var articles = {
+	'article-one' : {
+		title: "article-1",
+		heading: "article-one",
+		date: "05-Aug",
+		content: `
+			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
+			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
+			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
+		`
+	},
+	'article-two' : {
+		title: "article-2",
+		heading: "article-two",
+		date: "05-Aug",
+		content: `
+			<p> this is article-two </p>
+		`
+	},
+	'article-three' : {
+		title: "article-3",
+		heading: "article-three",
+		date: "25-Aug",
+		content: `
+			<p> this is article-three </p>
+		`
+	},
+}
+
+function create_template (data){
+	var title = data.title;
+	var heading = data.heading;
+	var date = data.date;
+	var content = data.content;
+	var html_template = `
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>${title}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="/ui/style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="container">
+			<div>
+				<a href="/"> Home </a>
+			</div>
+			<hr/>
+			<div>
+				<h3> ${heading} </h3>
+			</div>
+			<div>
+				${date}
+			</div>
+			<p> ${content} </p>
+		</div>
+	</body>
+	</html>
+	`;
+	return html_template;
+}
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -22,6 +84,24 @@ app.get('/ui/madi.png', function (req, res) {
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
+
+var names = [];
+// app.get('/get_name/:name', function (req, res) {
+//   var name = req.params.name;
+app.get('/get_name/', function (req, res) {
+  var name = req.query.name;
+  names.push(name);
+  res.send(JSON.stringify(names));
+});
+
+app.get('/:articleName', function (req, res) {
+  var articleName = req.params.articleName;
+  res.send(create_template(articles[articleName]));
+});
+
+// app.get('/article-one', function (req, res) {
+//   res.send(create_template(articleOne));
+// });
 
 //connect to database
 var config = {
