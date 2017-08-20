@@ -102,10 +102,10 @@ function hash(input,salt){
 }
 
 //hash page
-app.get('/hash/:input', function(req,res)){
+app.get('/hash/:input', function(req,res){
     var hashedstr = hash(req.params.input,'this-is-some-random-string');
     res.send(hashedstr);
-}
+});
 
 //query database
 var pool = new Pool(config);
