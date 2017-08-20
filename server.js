@@ -7,34 +7,7 @@ app.use(morgan('combined'));
 
 var Pool = require('pg').Pool;
 
-//var articles = {
-	'article-one' : {
-		title: "article-1",
-		heading: "article-one",
-		date: "05-Aug",
-		content: `
-			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
-			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
-			<p> this is article-one text this is article-one text this is article-one text this is article-one text this is article-one text </p>
-		`
-	},
-	'article-two' : {
-		title: "article-2",
-		heading: "article-two",
-		date: "05-Aug",
-		content: `
-			<p> this is article-two </p>
-		`
-	},
-	'article-three' : {
-		title: "article-3",
-		heading: "article-three",
-		date: "25-Aug",
-		content: `
-			<p> this is article-three </p>
-		`
-	},
-}
+
 
 function create_template (data){
 	var title = data.title;
