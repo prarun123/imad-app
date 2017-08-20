@@ -1,6 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
+var crypto = require('crypto');
 
 var app = express();
 app.use(morgan('combined'));
@@ -93,6 +94,20 @@ var config = {
     port: '5432',
     password: process.env.DB_PASSWORD
 };
+
+//hash function
+function hash(input,salt){
+    var hashed = crypto.pbkdf2sync(input,salt,10000,512,'sha512')
+    return hashed.tostring('hex');
+}
+
+//hash page
+app.get('/hash/:input', function(req,res)){
+    var hashedstr = hash(req.params.input,'this-is-some-random-string');
+    res.send(hashedstr);
+}
+
+//query database
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
    pool.query('SELECT * FROM article', function(err,result) {
