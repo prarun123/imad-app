@@ -93,6 +93,8 @@ var config = {
     port: '5432',
     password: process.env.DB_PASSWORD
 };
+
+//query database
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
    pool.query('SELECT * FROM article', function(err,result) {
