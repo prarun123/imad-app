@@ -132,7 +132,7 @@ app.post('/login', function(req,res){
         res.status(500).send(err.toString());
      else{
         if (result.rows.length === 0)
-             res.status(400).send('username/password incorrect');
+             res.status(403).send('username/password incorrect');
         else {
             var dbstr = result.rows[0].password;
             var salt = dbstr.split('$')[2];
@@ -140,7 +140,7 @@ app.post('/login', function(req,res){
             if (hashedpass === dbstr)
               res.send("login done");
             else 
-              res.status(400).send('username/password incorrect');
+              res.status(403).send('username/password incorrect');
         }         
      }
     });    
