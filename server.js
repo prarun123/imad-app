@@ -2,9 +2,11 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var crypto = require('crypto');
+var bodyParser = require('body-parser');
 
 var app = express();
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 var Pool = require('pg').Pool;
 
@@ -105,6 +107,20 @@ function hash(input,salt){
 app.get('/hash/:input', function(req,res){
     var hashedstr = hash(req.params.input,'this-is-some-random-string');
     res.send(hashedstr);
+});
+
+//save username and password in database
+app.post('/create-user', function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+    var salt = crypto.randomBytes(128).toString('hex');
+    var dbstr = hash(password,salt);
+    pool.query('INSERT INTO "user" (username,password) values ($1,$2)', [username,dbstr], function(err,result) {
+     if(err)
+        res.status(500).send(err.toString());
+     else
+        res.send(JSON.stringify(result.rows));
+    });    
 });
 
 //query database
