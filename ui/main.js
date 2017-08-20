@@ -44,7 +44,6 @@
 var sub = document.getElementById('sub');
 sub.onclick = function () {
 	var request = new XMLHttpRequest();
-	ul.innerHTML = '';
 	request.onreadystatechange = function (){
 		if (request.readyState === XMLHttpRequest.DONE ){
 			if (request.status === 200) 
