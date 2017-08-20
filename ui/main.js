@@ -1,47 +1,66 @@
-var button = document.getElementById('counter1');
-var count = document.getElementById('count');
-button.onclick = function () {
-	var request = new XMLHttpRequest();
+// var button = document.getElementById('counter1');
+// var count = document.getElementById('count');
+// button.onclick = function () {
+// 	var request = new XMLHttpRequest();
 
-	request.onreadystatechange = function (){
-		if (request.readyState === XMLHttpRequest.DONE ){
-			if (request.status === 200) {
-				var counter = request.responseText;
-				count.innerHTML = counter.toString();
-			}
-		}
-	};
+// 	request.onreadystatechange = function (){
+// 		if (request.readyState === XMLHttpRequest.DONE ){
+// 			if (request.status === 200) {
+// 				var counter = request.responseText;
+// 				count.innerHTML = counter.toString();
+// 			}
+// 		}
+// 	};
 
-	//request.open('GET','http://localhost/counter',true);
-	request.open('GET','http://prarun123.imad.hasura-app.io/counter',true);
-	request.send(null);
-}
+// 	//request.open('GET','http://localhost/counter',true);
+// 	request.open('GET','http://prarun123.imad.hasura-app.io/counter',true);
+// 	request.send(null);
+// }
 
+
+// var sub = document.getElementById('sub');
+// var ul = document.getElementById('ul');
+// sub.onclick = function () {
+// 	var request = new XMLHttpRequest();
+// 	ul.innerHTML = '';
+// 	request.onreadystatechange = function (){
+// 		if (request.readyState === XMLHttpRequest.DONE ){
+// 			if (request.status === 200) {
+// 				var names = request.responseText;
+// 				names = JSON.parse(names);
+// 				for (var i=0; i<names.length; i++)
+// 				ul.innerHTML += "<li>" + names[i] + "</li>";
+// 			}
+// 		}
+// 	};
+// 	var source1 = document.getElementById('source');
+// 	var source = source1.value;
+// 	// request.open('GET','http://localhost/get_name/'+ source,true);
+// 	//request.open('GET','http://localhost/get_name/?name='+ source,true);
+// 	request.open('GET','http://prarun123.imad.hasura-app.io/get_name/?name='+ source,true);
+// 	request.send(null);
+// }
 
 var sub = document.getElementById('sub');
-var ul = document.getElementById('ul');
 sub.onclick = function () {
 	var request = new XMLHttpRequest();
 	ul.innerHTML = '';
 	request.onreadystatechange = function (){
 		if (request.readyState === XMLHttpRequest.DONE ){
-			if (request.status === 200) {
-				var names = request.responseText;
-				names = JSON.parse(names);
-				for (var i=0; i<names.length; i++)
-				ul.innerHTML += "<li>" + names[i] + "</li>";
-			}
+			if (request.status === 200) 
+                console.log('logged in successfully');
+            else if(request.status === 403) 
+                console.log('log in error');
+            else if(request.status === 403) 
+                console.log('some other error');
 		}
 	};
-	var source1 = document.getElementById('source');
-	var source = source1.value;
-	// request.open('GET','http://localhost/get_name/'+ source,true);
-	//request.open('GET','http://localhost/get_name/?name='+ source,true);
-	request.open('GET','http://prarun123.imad.hasura-app.io/get_name/?name='+ source,true);
-	request.send(null);
-}
-
-
+	var username = document.getElementById('username').value;
+	var password = document.getElementById('password').value;
+	request.open('POST','http://prarun123.imad.hasura-app.io/login',true);
+	request.setRequestHeader('content-type','appication/json');
+	request.send(JSON.stringify({username:username,password:password}));
+};
 
 
 // console.log('Loaded!');
