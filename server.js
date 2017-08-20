@@ -123,6 +123,29 @@ app.post('/create-user', function(req,res){
     });    
 });
 
+//login user 
+app.post('/login', function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+    pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err,result) {
+     if(err)
+        res.status(500).send(err.toString());
+     else{
+        if (result.rows.length === 0)
+             res.status(400).send('username/password incorrect');
+        else {
+            var dbstr = result.rows[0].password;
+            var salt = dbstr.split('$')[2];
+            var hashedpass = hash(password,salt);
+            if (hashedstr === dbstr)
+              res.send("login done");
+            else 
+              res.status(400).send('username/password incorrect');
+        }         
+     }
+    });    
+});
+
 //query database
 var pool = new Pool(config);
 app.get('/test-db', function(req,res) {
