@@ -7,7 +7,7 @@ app.use(morgan('combined'));
 
 var Pool = require('pg').Pool;
 
-var articles = {
+//var articles = {
 	'article-one' : {
 		title: "article-1",
 		heading: "article-one",
